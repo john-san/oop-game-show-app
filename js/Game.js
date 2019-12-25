@@ -7,6 +7,7 @@
      this.missed = 0;
      this.phrases = this.createPhrases();
      this.activePhrase = null;
+     this.triesLeft = 5;
    }
    
    // initialize this.phrases
@@ -33,5 +34,36 @@
     document.getElementById('overlay').style.display = 'none';
     this.activePhrase = this.getRandomPhrase();
     this.activePhrase.addPhraseToDisplay();
+   }
+
+   checkForWin() {
+     return document.querySelectorAll('#phrase ul li.hide').length === 0;
+   }
+
+   removeLife() {
+    // update image 
+    this.updateHeartImage();
+    // update this.triesLeft
+    this.triesLeft -= 1;
+    
+
+    // check gameOver
+    if (this.tries === 0) {
+      this.gameOver();
+    }
+   }
+
+   gameOver() {
+     
+   }
+
+   updateHeartImage() {
+    this.heartToRemove.setAttribute('src', "images/liveHeart.png");
+    this.heartToRemove.setAttribute('alt', 'Missing Heart Icon');
+   }
+
+   get heartToRemove() {
+     const remainingHearts = document.querySelectorAll('li.tries img[src="images/liveHeart.png"]');
+     return remainingHearts[remainingHearts.length - 1];
    }
  }

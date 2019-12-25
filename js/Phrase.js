@@ -15,7 +15,7 @@ class Phrase {
     const letterRegex = /[a-z]/;
     const spaceRegex = /\s/;
     const puncRegex = /[,\.!\?]/;
-    
+
     arrayedPhrase.forEach(character => {
       const li = document.createElement('li');
       li.textContent = character;
@@ -30,7 +30,18 @@ class Phrase {
 
       phraseUL.appendChild(li);
     });
+  
+    checkLetter(letter) {
+      return this.phrase.includes(letter);
+    }
 
+    showMatchedLetter(letter) {
+      const letterDOMArr = [...document.getElementsByClassName(letter)];
+      letterDOMArr.forEach(letterDOM => {
+        letterDOM.classList.remove('hide');
+        letterDOM.classList.remove('show');
+      });
+    }
     
   }
 }
