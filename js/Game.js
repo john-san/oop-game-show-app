@@ -1,9 +1,10 @@
 class Game {
    constructor() {
+     this.active = false;
      this.missed = 0;
      this.phrases = this.createPhrases();
      this.activePhrase = null;
-     this.missed = 0;
+     
    }
    
    // initialize this.phrases
@@ -41,6 +42,7 @@ class Game {
 
    startGame() {
     this.resetGame();
+    this.active = true;
     document.getElementById('overlay').style.display = 'none';
     this.activePhrase = this.getRandomPhrase();
     this.activePhrase.addPhraseToDisplay();
@@ -74,6 +76,7 @@ class Game {
     overlay.classList.remove('start', 'win', 'lose');
     const gameOverMessage = document.querySelector("h1#game-over-message");
     document.getElementById('phrase-answer').textContent = `The answer was: "${this.activePhrase.phrase}"`;
+    this.active = false;
 
     if (outcome === true) {
       overlay.classList.add('win');
@@ -99,6 +102,12 @@ class Game {
      button.classList.add('wrong');
      this.removeLife();
     }
+  }
+
+  handleKeystokeInteraction(key) {
+    const button = [...document.querySelectorAll("button.key")]
+      .find(button => button.textContent === key);
+    this.handleInteraction(button);
   }
 
    // no more li elements w/ hide class === all letters are revealed
