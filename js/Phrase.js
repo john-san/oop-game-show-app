@@ -1,8 +1,3 @@
-/* Treehouse FSJS Techdegree
- * Project 4 - OOP Game App
- * Phrase.js */
-
-
 class Phrase {
   constructor(phrase) {
     this.phrase = phrase.toLowerCase();
@@ -11,12 +6,12 @@ class Phrase {
   // display phrase on game board
   addPhraseToDisplay() {
     const phraseUL = document.querySelector('#phrase ul');
-    const arrayedPhrase = this.phrase.split('');
+    const characters = this.phrase.split('');
     const letterRegex = /[a-z]/;
     const spaceRegex = /\s/;
-    const puncRegex = /[,\.!\?]/;
+    const puncRegex = /[',\.!\?]/;
 
-    arrayedPhrase.forEach(character => {
+    characters.forEach(character => {
       const li = document.createElement('li');
       li.textContent = character;
 
@@ -25,16 +20,14 @@ class Phrase {
       } else if (spaceRegex.test(character)) {
         li.classList.add('space');
       } else if (puncRegex.test(character)) {
-        li.classList.add('punc');
+        li.classList.add('punc', 'show');
       }
 
       phraseUL.appendChild(li);
     });
   }
   
-  checkLetter(letter) {
-    return this.phrase.includes(letter);
-  }
+  checkLetter(letter) { return this.phrase.includes(letter) }
 
   showMatchedLetter(letter) {
     const letterDOMArr = [...document.getElementsByClassName(letter)];
@@ -44,5 +37,4 @@ class Phrase {
       letterDOM.classList.add('show');
     });
   }
-  
 }
