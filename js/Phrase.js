@@ -30,18 +30,19 @@ class Phrase {
 
       phraseUL.appendChild(li);
     });
-  
-    checkLetter(letter) {
-      return this.phrase.includes(letter);
-    }
-
-    showMatchedLetter(letter) {
-      const letterDOMArr = [...document.getElementsByClassName(letter)];
-      letterDOMArr.forEach(letterDOM => {
-        letterDOM.classList.remove('hide');
-        letterDOM.classList.remove('show');
-      });
-    }
-    
   }
+  
+  checkLetter(letter) {
+    return this.phrase.includes(letter);
+  }
+
+  showMatchedLetter(letter) {
+    const letterDOMArr = [...document.getElementsByClassName(letter)];
+
+    letterDOMArr.forEach(letterDOM => {
+      letterDOM.classList.remove('hide');
+      letterDOM.classList.add('show');
+    });
+  }
+  
 }
