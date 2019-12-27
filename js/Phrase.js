@@ -14,7 +14,7 @@ class Phrase {
     characters.forEach(character => {
       const li = document.createElement('li');
       li.textContent = character;
-
+      li.classList.add('animated');
       if (letterRegex.test(character)) {
         li.classList.add('hide', 'letter', character);
       } else if (spaceRegex.test(character)) {

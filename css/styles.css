@@ -12,6 +12,7 @@
   --color-keys: #37474F;
   --color-keys-light: #E5E5E5;
   --font-size-large: 60px;
+  --font-size-medium-large: 35px;
   --font-size-medium: 20px;
   --transition: all .2s ease-in-out;
 }
@@ -27,7 +28,7 @@ body {
   justify-content: space-evenly;
   flex-direction: column;
   display: flex;
-  height: 100vh;
+  /* height: 100vh; */
 }
 
 li, ol, ul {
@@ -65,6 +66,16 @@ button {
 	margin: 0 auto;
 }
 
+#btn__new-game {
+  background: var(--color-neutral);
+  color: white;
+}
+
+#btn__resign {
+  background: var(--color-lose);
+  color: white;
+}
+
 .main-container {
   display: flex;
   flex-direction: column;
@@ -94,9 +105,9 @@ button {
 
 .letter {
   font-size: var(--font-size-medium);
-  height: 65px;
-  width: 65px;
-  padding: 20px 1px 0 1px;
+  height: 40px;
+  width: 40px;
+  padding: 10px 1px 0 1px;
   margin-right: 2px;
   color: transparent;
   background: var(--color-neutral-light);
@@ -113,9 +124,9 @@ button {
   color: #fff;
   background-color: #4ac0d5;
   font-size: 20px;
-  height: 65px;
-  width: 65px;
-  padding: 20px 1px 0 1px;
+  height: 40px;
+  width: 40px;
+  padding: 10px 1px 0 1px;
   margin-right: 2px;
   border-radius: 5px;
   -webkit-animation-duration: .5s;
@@ -201,4 +212,32 @@ button {
 
 .lose a {
   color: var(--color-lose);
+}
+
+@media(max-width: 600px) {
+  .title, .header {
+    font-size: var(--font-size-medium-large);
+  }
+  #phrase-answer {
+    padding-right: 5px;
+    padding-left: 5px;
+  }
+
+  .key {
+    margin: 3px;
+    padding: 0.33rem 0.75rem;
+  }
+
+  .show, .hide {
+    height: 33px;
+    width: 33px;
+    padding: 5px 1px 0 1px;
+  }
+}
+
+@media (min-width: 1080px) {
+  #phrase {
+    max-width: 80%;
+    align-self: center;
+  }
 }
