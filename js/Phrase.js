@@ -59,7 +59,7 @@ class Phrase {
         return highestCountLetter;
       }, 0);
   }
-  
+
   // helper for mostCommonAvailableLetter
   count(str, char) {
     let total = 0;

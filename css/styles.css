@@ -88,6 +88,9 @@ button {
 #gameOptions button:hover {
   filter: brightness(125%);
 }
+.disable-filter {
+  filter: none !important;
+}
 
 .main-container {
   display: flex;

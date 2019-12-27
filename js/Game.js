@@ -60,6 +60,7 @@ class Game {
     this.activePhrase = null;
     this.interacting = false;
     this.missed = 0;
+    removeClassIfExists(freeLetterBtn, 'disable-filter');
 
     const phraseUL = document.querySelector('#phrase ul');
     const phraseULChildren = [...phraseUL.children];
@@ -91,13 +92,14 @@ class Game {
     if (outcome === true) {
       overlay.classList.add('win');
       gameOverMessage.textContent = "You win! Congrats!!";
+      addClassIfDoesNotExist(freeLetterBtn, 'disable-filter');
     } else {
       overlay.classList.add('lose');
       gameOverMessage.textContent = "You ran out of tries, you lose!";
     }
   }
 
-  // Option to give free letters
+  // option to give free letters
   giveLetter() {
     const letter = this.activePhrase.mostCommonAvailableLetter;
     const button = [...document.querySelectorAll('button.key')]
@@ -162,7 +164,7 @@ class Game {
   handleKeystokeInteraction(key) {
     const button = [...document.querySelectorAll("button.key")]
       .find(button => button.textContent === key);
-    // only handleInteraction if button isn't used already
+    // handleInteraction if letter hasn't been used yet
     if (button.getAttribute('disabled') !== "true") {
       this.handleInteraction(button);
     }
@@ -175,7 +177,9 @@ class Game {
       this.updateHeartsCounter();
 
       // if they've used up all their guesses, end the game w/ loss message
-      if (this.missed === 5) { this.gameOver(false) }
+      if (this.missed === 5) {
+        this.gameOver(false)
+      }
     }
   }
 
@@ -186,6 +190,7 @@ class Game {
     heartToRemove.setAttribute('alt', 'Missing Heart Icon');
   }
 
+  // gets farthest filled heart on the right
   get heartToRemove() {
     const remainingHearts = document.querySelectorAll('li.tries img[src="images/liveHeart.png"]');
     return remainingHearts[remainingHearts.length - 1];
