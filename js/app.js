@@ -22,6 +22,10 @@ document.getElementById('btn__reset').addEventListener('click', e => {
   game.startGame();
 });
 
+document.getElementById('btn__free-letter').addEventListener('click', e => {
+  game.giveLetter();
+});
+
 document.getElementById('btn__new-game').addEventListener('click', e => {
   game.startGame();
 });

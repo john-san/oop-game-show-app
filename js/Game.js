@@ -142,13 +142,24 @@ class Game {
    // fade in overlay screen on gameOver
    fadeInDisplay() {
     overlay.classList.remove('start', 'win', 'lose');
-    overlay.style.display = "flex"; // note to self: must set before animateCSS, otherwise won't work
-    if (this.active === true) { animateCSS(overlay, 'fadeIn', () => this.active = false) }
+    if (this.active === true) { 
+      overlay.style.display = "flex"; // note to self: must set before animateCSS, otherwise won't work
+      animateCSS(overlay, 'fadeIn', () => this.active = false, "delay-0-5s") 
+    }
    }
 
    // helper in gameOver to show answer
    showAnswer() {
      document.getElementById('phrase-answer').textContent = `The answer was: "${this.activePhrase.phrase}"`;
+   }
+
+   // hint to give free letters
+   giveLetter() {
+     const letter = this.activePhrase.mostCommonAvailableLetter;
+     const button = [...document.querySelectorAll('button.key')]
+      .find(button => button.textContent === letter);
+      
+     this.handleInteraction(button);
    }
 
    removeLife() {

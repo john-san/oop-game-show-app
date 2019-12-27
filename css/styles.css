@@ -66,6 +66,11 @@ button {
 	margin: 0 auto;
 }
 
+#btn__free-letter {
+  background: #4ac0d5;
+  color: white;
+}
+
 #btn__new-game {
   background: var(--color-neutral);
   color: white;
@@ -98,6 +103,11 @@ button {
 
 .header {
   color: #3a3f58;
+}
+
+.subheader {
+  font-size: var(--font-size-medium);
+  margin: 10px 0 0 0;
 }
 
 
@@ -213,6 +223,43 @@ button {
 .lose a {
   color: var(--color-lose);
 }
+
+/* animate.css helpers */
+.delay-0-5s {
+  animation-delay: 500ms;
+}
+.delay-1s {
+  animation-delay: 1s;
+}
+.delay-1-5s {
+  animation-delay: 1500ms;
+}
+.delay-2s {
+  animation-delay: 2s;
+}
+.delay-3s {
+  animation-delay: 3s;
+}
+.delay-4s {
+  animation-delay: 4s;
+}
+.delay-5s {
+  animation-delay: 5s;
+}
+
+.slow {
+  animation-duration: 2s;
+}
+.slower {
+  animation-duration: 3s;
+}
+.fast {
+  animation-duration: 800ms;
+}
+.faster {
+  animation-duration: 250ms;
+}
+
 
 @media(max-width: 600px) {
   .title, .header {

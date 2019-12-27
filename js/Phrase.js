@@ -38,4 +38,24 @@ class Phrase {
       animateCSS(letterDOM, "flipInY", () => game.interacting = false , "faster");
     });
   }
+
+  get mostCommonAvailableLetter() {
+    return [...document.querySelectorAll('button.key')]
+      .filter(key => key.getAttribute('disabled') === null)
+      .map(key => key.textContent)
+      .reduce((highestCountLetter, currentLetter) => {
+        const currentCount = this.count(this.phrase, currentLetter);
+        const highestCount = this.count(this.phrase, highestCountLetter);
+        if (currentCount > highestCount) { highestCountLetter = currentLetter  }
+        return highestCountLetter;
+      }, 0);
+  }
+  // helper for mostCommonAvailableLetter
+  count(str, char) {
+    let total = 0;
+    for (let i = 0; i < str.length; i++) {
+      if (char === str[i]) { total += 1 }
+    }
+    return total;
+  }
 }
