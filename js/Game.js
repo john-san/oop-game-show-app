@@ -1,33 +1,39 @@
-
-
 class Game {
    constructor() {
      this.active = false;
      this.missed = 0;
      this.phrases = this.createPhrases();
      this.activePhrase = null;
-     
    }
    
    // initialize this.phrases
    createPhrases() {
      const phrases = [];
-     phrases.push(new Phrase('Do you understand the words that are coming out of my mouth?'));
-     phrases.push(new Phrase("Which one of y'all kicked me?"));
-     phrases.push(new Phrase('Wipe yourself off, you dead.'));
-     phrases.push(new Phrase('Man, who do you think you kidnapped? Chelsea Clinton?'));
-     phrases.push(new Phrase("You didn't just touch my goddamn radio!"));
-     phrases.push(new Phrase("In HK, I am Michael Jackson and you are Toto."));
+     phrases.push(new Phrase('Why are you hanging out with 7-11?'));
+     phrases.push(new Phrase("Man destroyin' a classic!"));
+     phrases.push(new Phrase("Don't stop 'till you get enough!"));
+     phrases.push(new Phrase("'Cha mone Lee!"));
+     phrases.push(new Phrase("I knew you was 'lyin."));
+     phrases.push(new Phrase("OK Fungow, right now! ...What did I just say?"));
      phrases.push(new Phrase("Follow the rich white man."));
-     phrases.push(new Phrase("Women think I'm  cute. Like Snoopy."));
-     phrases.push(new Phrase("That's Ricky Tan? Man, that's a midget in a bathrobe!"));
+     phrases.push(new Phrase("That's Ricky Tan? That's a midget in a bathrobe!"));
      phrases.push(new Phrase("I said 'she was the bomb'"));
      phrases.push(new Phrase("You Americans are so funny."));
      phrases.push(new Phrase("Drop the blade and let the bird go."));
      phrases.push(new Phrase("I knew somethin' was wrong when my key wasn't working."));
      phrases.push(new Phrase("I'll shoot you, say 'ya fell in the kitchen."));
+     phrases.push(new Phrase("Big party tonight."));
+     phrases.push(new Phrase("Why didn't you tell me this man rolls like this?"));
+     phrases.push(new Phrase("That means 'I go this way and you go that way.'"));
+     phrases.push(new Phrase("I will slap you if you don't move this car"));
+     phrases.push(new Phrase("Who died, Lee?"));
+     phrases.push(new Phrase("Carter, this is your city, right?"));
+     phrases.push(new Phrase("Better watch 'yo back. AHH!"));
+     phrases.push(new Phrase("Butter cream, butter cream, croc skin."));
+     phrases.push(new Phrase("Who put they hand on my butt?"));
+     phrases.push(new Phrase("I've always wanted to go to Madison Square Garden."));
+     phrases.push(new Phrase("Jackie always okay!"));
 
-     
      return phrases;
    }
 
@@ -41,11 +47,8 @@ class Game {
 
    startGame() {
     this.resetGame();
-    this.active = true;
-    animateCSS(overlay, 'fadeOut', () => {
-      overlay.style.display = 'none';
-    });
 
+    this.fadeOutDisplay();
     this.activePhrase = this.getRandomPhrase();
     this.activePhrase.addPhraseToDisplay();
     this.updateHeartsCounter();
@@ -67,6 +70,7 @@ class Game {
     });
 
     this.missed = 0;
+
     const hearts = [...document.querySelectorAll('li.tries img')]
       .filter(heart => heart.getAttribute("src") === "images/lostHeart.png")
       .forEach(heart => {
@@ -77,14 +81,11 @@ class Game {
 
    // display correct gameOver message based on game situation
    gameOver(outcome) {
-    overlay.classList.remove('start', 'win', 'lose');
-    overlay.style.display = '';
-    
+    this.fadeInDisplay();
+    this.showAnswer();
 
     const gameOverMessage = document.querySelector("h1#game-over-message");
-    document.getElementById('phrase-answer').textContent = `The answer was: "${this.activePhrase.phrase}"`;
-    this.active = false;
-
+    
     if (outcome === true) {
       overlay.classList.add('win');
       gameOverMessage.textContent = "You win! Congrats!!";
@@ -125,12 +126,33 @@ class Game {
      return document.querySelectorAll('#phrase ul li.hide').length === 0;
    }
 
+   // fade out screen when starting game from overlay screen 
+   fadeOutDisplay() {
+    if (this.active === false) {
+      animateCSS(overlay, 'fadeOut', () =>  {
+        overlay.style.display = "none";
+        this.active = true;
+      });
+    }
+   }
+
+   // fade in overlay screen on gameOver
+   fadeInDisplay() {
+    overlay.classList.remove('start', 'win', 'lose');
+    overlay.style.display = "flex"; // note to self: must set before animateCSS, otherwise won't work
+    if (this.active === true) { animateCSS(overlay, 'fadeIn', () => this.active = false) }
+   }
+
+   // helper in gameOver to show answer
+   showAnswer() {
+     document.getElementById('phrase-answer').textContent = `The answer was: "${this.activePhrase.phrase}"`;
+   }
+
    removeLife() {
     this.missed += 1;
     this.updateHeartImage();
     this.updateHeartsCounter();
     
-
     // if they've used up all their guesses, end the game w/ loss message
     if (this.missed === 5) { this.gameOver(false) }
    }
@@ -148,6 +170,4 @@ class Game {
      const remainingHearts = document.querySelectorAll('li.tries img[src="images/liveHeart.png"]');
      return remainingHearts[remainingHearts.length - 1];
    }
-
-   
  }

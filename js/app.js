@@ -1,5 +1,4 @@
 // modified animateCSS helper, from https://github.com/daneden/animate.css
-// TODO: figure out how to do import/exports
 function animateCSS (element, animationName, callback) {
   const node = element;
   node.classList.add('animated', animationName);
@@ -29,7 +28,10 @@ document.getElementById('btn__new-game').addEventListener('click', e => {
 
 document.getElementById('btn__resign').addEventListener('click', e => {
   const choice = confirm("Are you sure you'd like to resign?");
-  if (choice) { game.gameOver(false) }
+  if (choice) { 
+    game.gameOver(false);
+    document.getElementById('btn__resign').blur();
+  }
 });
 
 document.getElementById('qwerty').addEventListener('click', e => {
