@@ -2,7 +2,7 @@
 
 ## Unit 4 Project: OOP Game Show App
 
-**Summary:** This project uses JavaScript and Object-Oriented Programming to create a phrase hunter game.  It allows players to guess letters of a random phrase by either selecting a key from on the screen or by pressing a key on their keyboard.  
+**Summary:** This project uses JavaScript and Object-Oriented Programming to create a phrase hunter game.  It allows players to guess letters of a random phrase by either selecting a key from the onscreen keyboard or by pressing a key on their physical keyboard.  
 
 If the player completes the phrase before they run out of guesses, a winning screen appears. If the player guesses incorrectly five times, a losing screen appears.
 
