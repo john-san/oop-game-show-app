@@ -1,10 +1,14 @@
+// Globals
+const game = new Game();
+const overlay = document.getElementById("overlay");
+
 // modified animateCSS helper, from https://github.com/daneden/animate.css
-function animateCSS (element, animationName, callback) {
+function animateCSS (element, animationName, callback, speed = "fast") {
   const node = element;
-  node.classList.add('animated', animationName);
+  node.classList.add('animated', animationName, speed);
 
   function handleAnimationEnd() {
-      node.classList.remove('animated', animationName);
+      node.classList.remove('animated', animationName, speed);
       node.removeEventListener('animationend', handleAnimationEnd);
 
       if (typeof callback === 'function') callback()
@@ -12,10 +16,6 @@ function animateCSS (element, animationName, callback) {
 
   node.addEventListener('animationend', handleAnimationEnd);
 };
-
-// Globals
-const game = new Game();
-const overlay = document.getElementById("overlay");
 
 // event listeners
 document.getElementById('btn__reset').addEventListener('click', e => {

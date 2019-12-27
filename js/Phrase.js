@@ -35,7 +35,7 @@ class Phrase {
     letterDOMArr.forEach(letterDOM => {
       letterDOM.classList.remove('hide');
       letterDOM.classList.add('show');
-      animateCSS(letterDOM, "flipInY"); // animateCSS in app.js
+      animateCSS(letterDOM, "flipInY", () => game.interacting = false , "faster");
     });
   }
 }

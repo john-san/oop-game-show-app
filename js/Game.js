@@ -1,15 +1,15 @@
 class Game {
    constructor() {
-     this.active = false;
+     this.active = false; //true when game is active, error safeguard
      this.missed = 0;
      this.phrases = this.createPhrases();
      this.activePhrase = null;
+     this.interacting = false; // true when handleInteraction is running, error safeguard
    }
    
    // initialize this.phrases
    createPhrases() {
      const phrases = [];
-     phrases.push(new Phrase('Why are you hanging out with 7-11?'));
      phrases.push(new Phrase("Man destroyin' a classic!"));
      phrases.push(new Phrase("Don't stop 'till you get enough!"));
      phrases.push(new Phrase("'Cha mone Lee!"));
@@ -25,7 +25,7 @@ class Game {
      phrases.push(new Phrase("Big party tonight."));
      phrases.push(new Phrase("Why didn't you tell me this man rolls like this?"));
      phrases.push(new Phrase("That means 'I go this way and you go that way.'"));
-     phrases.push(new Phrase("I will slap you if you don't move this car"));
+     phrases.push(new Phrase("I will slap you if you don't move this car!"));
      phrases.push(new Phrase("Who died, Lee?"));
      phrases.push(new Phrase("Carter, this is your city, right?"));
      phrases.push(new Phrase("Better watch 'yo back. AHH!"));
@@ -57,6 +57,8 @@ class Game {
    // clear phrase, reset keyboard & hearts 
    resetGame() {
     this.activePhrase = null;
+    this.interacting = false;
+    this.missed = 0;
 
     const phraseUL = document.querySelector('#phrase ul');
     const phraseULChildren = [...phraseUL.children];
@@ -68,8 +70,6 @@ class Game {
       button.classList.remove('chosen', 'wrong');
       button.removeAttribute('disabled');
     });
-
-    this.missed = 0;
 
     const hearts = [...document.querySelectorAll('li.tries img')]
       .filter(heart => heart.getAttribute("src") === "images/lostHeart.png")
@@ -96,19 +96,22 @@ class Game {
    }
 
    handleInteraction(button) {
-    const letter = button.textContent;
-    button.setAttribute('disabled', true);
+    if (this.interacting === false) {
+      this.interacting = true;
 
-    //  if letter exists in phrase, reveal the letter. if not, remove a life.
-    if (this.activePhrase.checkLetter(letter)) {
-     button.classList.add('chosen');
-     this.activePhrase.showMatchedLetter(letter);
-     
-     // if entire phrase is revealed, end game w/ win message
-     if (this.checkForWin()) { this.gameOver(true) }
-    } else {
-     button.classList.add('wrong');
-     this.removeLife();
+      const letter = button.textContent;
+      button.setAttribute('disabled', true);
+
+      //  if letter exists in phrase, reveal the letter. if not, remove a life.
+      if (this.activePhrase.checkLetter(letter)) {
+        button.classList.add('chosen');
+        this.activePhrase.showMatchedLetter(letter);
+        if (this.checkForWin()) { this.gameOver(true) } // checkforWin
+      } else {
+        button.classList.add('wrong');
+        this.removeLife();
+        this.interacting = false;
+      }
     }
   }
 
@@ -149,12 +152,14 @@ class Game {
    }
 
    removeLife() {
-    this.missed += 1;
-    this.updateHeartImage();
-    this.updateHeartsCounter();
-    
-    // if they've used up all their guesses, end the game w/ loss message
-    if (this.missed === 5) { this.gameOver(false) }
+     if (this.missed < 5) { 
+      this.missed += 1;
+      this.updateHeartImage();
+      this.updateHeartsCounter();
+      
+      // if they've used up all their guesses, end the game w/ loss message
+      if (this.missed === 5) { this.gameOver(false) }
+     }
    }
 
    updateHeartImage() {
