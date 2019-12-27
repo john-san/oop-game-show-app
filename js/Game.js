@@ -1,3 +1,5 @@
+
+
 class Game {
    constructor() {
      this.active = false;
@@ -40,7 +42,10 @@ class Game {
    startGame() {
     this.resetGame();
     this.active = true;
-    document.getElementById("overlay").style.display = 'none';
+    animateCSS(overlay, 'fadeOut', () => {
+      overlay.style.display = 'none';
+    });
+
     this.activePhrase = this.getRandomPhrase();
     this.activePhrase.addPhraseToDisplay();
     this.updateHeartsCounter();
@@ -72,9 +77,9 @@ class Game {
 
    // display correct gameOver message based on game situation
    gameOver(outcome) {
-    const overlay = document.getElementById('overlay');
     overlay.classList.remove('start', 'win', 'lose');
-    overlay.style.display = 'flex';
+    overlay.style.display = '';
+    
 
     const gameOverMessage = document.querySelector("h1#game-over-message");
     document.getElementById('phrase-answer').textContent = `The answer was: "${this.activePhrase.phrase}"`;
