@@ -3,7 +3,8 @@ class Phrase {
     this.phrase = phrase.toLowerCase();
   }
 
-  // display phrase on game board
+  /* Setup Functions */
+  // add phrase to display
   addPhraseToDisplay() {
     const phraseUL = document.querySelector('#phrase ul');
     const characters = this.phrase.split('');
@@ -26,19 +27,25 @@ class Phrase {
       phraseUL.appendChild(li);
     });
   }
-  
-  checkLetter(letter) { return this.phrase.includes(letter) }
 
+  /* Main Functions */
+  checkLetter(letter) {
+    return this.phrase.includes(letter)
+  }
+
+  // reveal all occurrences of letter on display
   showMatchedLetter(letter) {
     const letterDOMArr = [...document.getElementsByClassName(letter)];
 
     letterDOMArr.forEach(letterDOM => {
       letterDOM.classList.remove('hide');
       letterDOM.classList.add('show');
-      animateCSS(letterDOM, "flipInY", () => game.interacting = false , "faster");
+      animateCSS(letterDOM, "flipInY", () => game.interacting = false, "faster");
     });
   }
 
+  /* Helper Functions */
+  // helper for game.giveLetter
   get mostCommonAvailableLetter() {
     return [...document.querySelectorAll('button.key')]
       .filter(key => key.getAttribute('disabled') === null)
@@ -46,15 +53,20 @@ class Phrase {
       .reduce((highestCountLetter, currentLetter) => {
         const currentCount = this.count(this.phrase, currentLetter);
         const highestCount = this.count(this.phrase, highestCountLetter);
-        if (currentCount > highestCount) { highestCountLetter = currentLetter  }
+        if (currentCount > highestCount) {
+          highestCountLetter = currentLetter
+        }
         return highestCountLetter;
       }, 0);
   }
+  
   // helper for mostCommonAvailableLetter
   count(str, char) {
     let total = 0;
     for (let i = 0; i < str.length; i++) {
-      if (char === str[i]) { total += 1 }
+      if (char === str[i]) {
+        total += 1
+      }
     }
     return total;
   }

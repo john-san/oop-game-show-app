@@ -81,6 +81,14 @@ button {
   color: white;
 }
 
+/* :not is not supported in IE8, filter not supported in IE11  */
+#btn__reset:hover, button.key:hover:not(.chosen):not(.wrong)  {
+  filter: brightness(85%);
+}
+#gameOptions button:hover {
+  filter: brightness(125%);
+}
+
 .main-container {
   display: flex;
   flex-direction: column;
@@ -108,6 +116,7 @@ button {
 .subheader {
   font-size: var(--font-size-medium);
   margin: 10px 0 0 0;
+  color: #3a3f58;
 }
 
 
@@ -181,6 +190,7 @@ button {
 }
 
 
+
 /* Overlay */
 
 #overlay {
@@ -197,6 +207,12 @@ button {
 }
 
 .title {
+  color: #FFF;
+}
+
+.subtitle {
+  font-size: var(--font-size-medium);
+  margin: 10px 0 0 0;
   color: #FFF;
 }
 
@@ -280,6 +296,16 @@ button {
     width: 33px;
     padding: 5px 1px 0 1px;
   }
+
+  #gameOptions {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  #gameOptions button {
+    margin-bottom: 10px;
+  }
+
 }
 
 @media (min-width: 1080px) {

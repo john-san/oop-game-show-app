@@ -3,15 +3,15 @@ const game = new Game();
 const overlay = document.getElementById("overlay");
 
 // modified animateCSS helper, from https://github.com/daneden/animate.css
-function animateCSS (element, animationName, callback, speed = "fast") {
+function animateCSS(element, animationName, callback, speed = "fast") {
   const node = element;
   node.classList.add('animated', animationName, speed);
 
   function handleAnimationEnd() {
-      node.classList.remove('animated', animationName, speed);
-      node.removeEventListener('animationend', handleAnimationEnd);
+    node.classList.remove('animated', animationName, speed);
+    node.removeEventListener('animationend', handleAnimationEnd);
 
-      if (typeof callback === 'function') callback()
+    if (typeof callback === 'function') callback()
   }
 
   node.addEventListener('animationend', handleAnimationEnd);
@@ -32,7 +32,7 @@ document.getElementById('btn__new-game').addEventListener('click', e => {
 
 document.getElementById('btn__resign').addEventListener('click', e => {
   const choice = confirm("Are you sure you'd like to resign?");
-  if (choice) { 
+  if (choice) {
     game.gameOver(false);
     document.getElementById('btn__resign').blur();
   }
@@ -51,11 +51,13 @@ document.querySelector('body').addEventListener('keyup', e => {
       game.handleKeystokeInteraction(e.key);
     } else if (e.key === "Escape") {
       const choice = confirm("Are you sure you'd like to resign?");
-      if (choice) { game.gameOver(false) }
+      if (choice) {
+        game.gameOver(false)
+      }
     }
   } else {
-    if (e.key === "Enter") { game.startGame() }
+    if (e.key === "Enter") {
+      game.startGame()
+    }
   }
 });
-
-
