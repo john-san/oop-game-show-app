@@ -291,7 +291,7 @@ button {
 
   .key {
     margin: 3px;
-    padding: 0.2rem 0.35rem;
+    padding: 0.5rem 0.45rem;
   }
 
   .show, .hide {
@@ -309,6 +309,13 @@ button {
     margin-bottom: 10px;
   }
 
+}
+
+@media(max-width: 350px) {
+  .key {
+    margin: 3px;
+    padding: 0.2rem 0.35rem;
+  }
 }
 
 @media (min-width: 1080px) {

@@ -1,5 +1,5 @@
 // Globals
-const game = new Game();
+let game = new Game();
 const overlay = document.getElementById("overlay");
 const startBtn = document.getElementById('btn__reset');
 const freeLetterBtn = document.getElementById('btn__free-letter');
@@ -8,7 +8,10 @@ const resignBtn = document.getElementById('btn__resign');
 const onscreenKeyboard = document.getElementById('qwerty');
 
 // event listeners
-startBtn.addEventListener('click', e => game.startGame());
+startBtn.addEventListener('click', e => {
+  game = new Game();
+  game.startGame();
+});
 
 freeLetterBtn.addEventListener('click', e => {
   game.giveLetter();
